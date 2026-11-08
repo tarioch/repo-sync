@@ -10,7 +10,7 @@ Settings and shared files of the repositories in [`repos.yml`](repos.yml) are de
 | `repos.yml` | the repositories, a key per repository overrides the input of the same name |
 | `config/rulesets/` | the rulesets, matched by their `name` (a renamed ruleset is created again, the old one stays) |
 | `config/workflows/` | workflow files copied into `.github/workflows/` of the repositories |
-| `config/dependabot/` | the variants of `.github/dependabot.yml` (`python` is the default) |
+| `config/dependabot/` | the variants of `.github/dependabot.yml` (`python` is the default). The files in `config/workflows/` and `config/dependabot/` start with a comment that names them as synced, keep it | |
 | `scripts/extra-settings.sh` | what the action cannot set |
 | `.github/` | this repository's own workflows, `pr-labeler.yml` and `dependabot.yml` are copies of the synced ones |
 
