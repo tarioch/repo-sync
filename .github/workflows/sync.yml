@@ -1,0 +1,62 @@
+name: Sync repositories
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # puts back what was changed by hand
+    - cron: "17 5 * * 1"
+  workflow_dispatch:
+
+permissions: {}
+
+# runs never overlap, a started sync is not cancelled
+concurrency:
+  group: sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync
+    # secrets are not available to Dependabot and to pull requests from forks
+    if: >-
+      github.actor != 'dependabot[bot]' &&
+      (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # pull requests only report what would change (job summary), the merge applies it
+      - name: Sync settings, rulesets and files
+        uses: joshjohanning/bulk-github-repo-settings-sync-action@40134e844f292d0dcdc88c24fde06f085d191a35 # v2.12.4
+        with:
+          github-token: ${{ secrets.SYNC_TOKEN }}
+          repositories-file: repos.yml
+          dry-run: ${{ github.event_name == 'pull_request' }}
+          # merge only with a merge commit, auto-merge for Dependabot, clean up merged branches
+          allow-merge-commit: true
+          allow-squash-merge: false
+          allow-rebase-merge: false
+          allow-auto-merge: true
+          delete-branch-on-merge: true
+          allow-update-branch: true
+          # security
+          secret-scanning: true
+          secret-scanning-push-protection: true
+          dependabot-alerts: true
+          dependabot-security-updates: true
+          rulesets-file: config/rulesets/main.json,config/rulesets/release-tags.json
+          # files: arrive as pull requests in the repositories
+          workflow-files: config/workflows/pr-labeler.yml,config/workflows/release-drafter.yml,config/workflows/dependabot-automerge.yml
+          dependabot-yml: config/dependabot/python.yml
+
+      - name: Sync the settings the action does not cover
+        env:
+          GH_TOKEN: ${{ secrets.SYNC_TOKEN }}
+          DRY_RUN: ${{ github.event_name == 'pull_request' }}
+        run: scripts/extra-settings.sh
