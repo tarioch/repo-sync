@@ -1,0 +1,18 @@
+# The repositories that are kept in sync. Per-repository keys override the inputs of the sync step in
+# .github/workflows/sync.yml (same names as the inputs).
+repos:
+  - repo: tarioch/beancounttools
+  - repo: tarioch/bql-lora
+    # the comment about the beanquery git dependency
+    dependabot-yml: config/dependabot/bql-lora.yml
+  - repo: tarioch/docker-fava
+    # docker ecosystem for the base image
+    dependabot-yml: config/dependabot/docker.yml
+  - repo: tarioch/fava-nl2bql
+  - repo: tarioch/flux-check-hook
+  - repo: tarioch/llm-finetune-skills
+  - repo: tarioch/xirr
+  - repo: tarioch/repo-sync
+    # no python, no releases
+    dependabot-yml: config/dependabot/actions.yml
+    workflow-files: config/workflows/pr-labeler.yml,config/workflows/dependabot-automerge.yml
