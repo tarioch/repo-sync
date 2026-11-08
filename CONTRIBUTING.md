@@ -26,7 +26,7 @@ untracked files. The workflows need `ZIZMOR_OFFLINE=true` locally without a GitH
 ## Changing something
 
 - A pull request runs the sync as a dry run, read the job summary of `Sync` for what would change.
-- Merging to `main` applies it: settings directly, files as pull requests in the repositories (labeled `chore` by the synced `pr-labeler.yml`, since the action's branch
+- Merging to `main` applies it: settings directly, files as pull requests in the repositories (labeled `chore` by the synced `pr-labeler.yml` from their `chore:` title, the action's branch
   names have no prefix, merge them there).
 - Required status checks in the ruleset (`CI ok`, `Label check`) must exist in every repository with a ruleset,
   otherwise nothing can be merged there.
