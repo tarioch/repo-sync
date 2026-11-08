@@ -28,6 +28,8 @@ untracked files. The workflows need `ZIZMOR_OFFLINE=true` locally without a GitH
 - A pull request runs the sync as a dry run, read the job summary of `Sync` for what would change.
 - Merging to `main` applies it: settings directly, files as pull requests in the repositories (labeled `chore` by the synced `pr-labeler.yml` from their `chore:` title, the action's branch
   names have no prefix, merge them there).
+  The synced `dependabot-automerge.yml` also enables auto-merge for them (branch ending in `-sync` or starting with
+  `file-sync`, opened by the repository owner), so they merge themselves once `CI ok` and `Label check` pass.
 - Required status checks in the ruleset (`CI ok`, `Label check`) must exist in every repository with a ruleset,
   otherwise nothing can be merged there.
 - A new repository: add it to `repos.yml`. `SYNC_TOKEN` covers all repositories.
