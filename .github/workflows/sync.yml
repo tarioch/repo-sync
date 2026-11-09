@@ -38,22 +38,9 @@ jobs:
           github-token: ${{ secrets.SYNC_TOKEN }}
           repositories-file: repos.yml
           dry-run: ${{ github.event_name == 'pull_request' }}
-          # merge only with a merge commit, auto-merge for Dependabot, clean up merged branches
-          allow-merge-commit: true
-          allow-squash-merge: false
-          allow-rebase-merge: false
-          allow-auto-merge: true
-          delete-branch-on-merge: true
-          allow-update-branch: true
-          # security
-          secret-scanning: true
-          secret-scanning-push-protection: true
-          dependabot-alerts: true
-          dependabot-security-updates: true
-          rulesets-file: config/rulesets/main.json,config/rulesets/release-tags.json
-          # files: arrive as pull requests in the repositories
-          workflow-files: config/workflows/pr-labeler.yml,config/workflows/release-drafter.yml,config/workflows/dependabot-automerge.yml
-          dependabot-yml: config/dependabot/python.yml
+          delete-unmanaged-rulesets: true
+          workflow-files-pr-title: "chore: sync workflow files"
+          dependabot-pr-title: "chore: sync dependabot.yml"
 
       - name: Sync the settings the action does not cover
         env:
