@@ -39,6 +39,8 @@ jobs:
           repositories-file: repos.yml
           dry-run: ${{ github.event_name == 'pull_request' }}
           delete-unmanaged-rulesets: true
+          workflow-files-pr-title: "chore: sync workflow files"
+          dependabot-pr-title: "chore: sync dependabot.yml"
 
       - name: Sync the settings the action does not cover
         env:
