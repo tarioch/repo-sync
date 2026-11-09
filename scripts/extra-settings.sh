@@ -15,7 +15,7 @@ run() {
   fi
 }
 
-for repo in $(yq '.repos[].repo' repos.yml); do
+for repo in $(yq '.rules[0].selector.repos[]' repos.yml); do
   echo "== $repo"
   run gh api -X PATCH "repos/$repo" -F has_wiki=false -F has_projects=false --silent
   run gh api -X PUT "repos/$repo/actions/permissions/workflow" \

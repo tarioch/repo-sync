@@ -1,18 +1,56 @@
-# The repositories that are kept in sync. Per-repository keys override the inputs of the sync step in
-# .github/workflows/sync.yml (same names as the inputs).
-repos:
-  - repo: tarioch/beancounttools
-  - repo: tarioch/bql-lora
-    # the comment about the beanquery git dependency
-    dependabot-yml: config/dependabot/bql-lora.yml
-  - repo: tarioch/docker-fava
-    # docker ecosystem for the base image
-    dependabot-yml: config/dependabot/docker.yml
-  - repo: tarioch/fava-nl2bql
-  - repo: tarioch/flux-check-hook
-  - repo: tarioch/llm-finetune-skills
-  - repo: tarioch/xirr
-  - repo: tarioch/repo-sync
-    # no python, no releases
-    dependabot-yml: config/dependabot/actions.yml
-    workflow-files: config/workflows/pr-labeler.yml,config/workflows/dependabot-automerge.yml
+# The repositories that are kept in sync and the settings they get, as rules for the sync action.
+owner: tarioch
+
+rules:
+  - selector:
+      repos:
+        - tarioch/beancounttools
+        - tarioch/bql-lora
+        - tarioch/docker-fava
+        - tarioch/fava-nl2bql
+        - tarioch/flux-check-hook
+        - tarioch/llm-finetune-skills
+        - tarioch/xirr
+        - tarioch/repo-sync
+    settings:
+      # merge only with a merge commit, auto-merge for Dependabot, clean up merged branches
+      allow-merge-commit: true
+      allow-squash-merge: false
+      allow-rebase-merge: false
+      allow-auto-merge: true
+      delete-branch-on-merge: true
+      allow-update-branch: true
+      # security
+      secret-scanning: true
+      secret-scanning-push-protection: true
+      dependabot-alerts: true
+      dependabot-security-updates: true
+      rulesets-file: |
+        config/rulesets/main.json
+        config/rulesets/release-tags.json
+      # files that arrive as pull requests in the repositories
+      workflow-files: |
+        config/workflows/pr-labeler.yml
+        config/workflows/release-drafter.yml
+        config/workflows/dependabot-automerge.yml
+      dependabot-yml: config/dependabot/python.yml
+  # the comment about the beanquery git dependency
+  - selector:
+      repos: [tarioch/bql-lora]
+    settings:
+      dependabot-yml: config/dependabot/bql-lora.yml
+
+  # docker ecosystem for the base image
+  - selector:
+      repos: [tarioch/docker-fava]
+    settings:
+      dependabot-yml: config/dependabot/docker.yml
+
+  # no python, no releases
+  - selector:
+      repos: [tarioch/repo-sync]
+    settings:
+      dependabot-yml: config/dependabot/actions.yml
+      workflow-files: |
+        config/workflows/pr-labeler.yml
+        config/workflows/dependabot-automerge.yml

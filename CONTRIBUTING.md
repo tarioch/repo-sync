@@ -7,7 +7,7 @@ Settings and shared files of the repositories in [`repos.yml`](repos.yml) are de
 
 | Path | Content |
 |---|---|
-| `repos.yml` | the repositories, a key per repository overrides the input of the same name |
+| `repos.yml` | what is synced, as rules: the first rule has the repositories and the defaults for all of them, the rules below only what differs |
 | `config/rulesets/` | the rulesets, matched by their `name` (a renamed ruleset is created again, the old one stays) |
 | `config/workflows/` | workflow files copied into `.github/workflows/` of the repositories |
 | `config/dependabot/` | the variants of `.github/dependabot.yml` (`python` is the default) |
@@ -33,7 +33,9 @@ untracked files. The workflows need `ZIZMOR_OFFLINE=true` locally without a GitH
 - Required status checks in the ruleset (`CI ok`, `Label check`) must exist in every repository with a ruleset,
   otherwise nothing can be merged there.
 - The files in `config/workflows/` and `config/dependabot/` start with a comment that names them as synced, keep it.
-- A new repository: add it to `repos.yml`. `SYNC_TOKEN` covers all repositories.
+- A later rule in `repos.yml` replaces a setting as a whole, also a list like `workflow-files`, so it has to name every
+  file the repository should get. Only `rulesets-file` adds up over the rules.
+- A new repository: add it to the list of the first rule in `repos.yml`. `SYNC_TOKEN` covers all repositories.
 
 ## Secret
 
