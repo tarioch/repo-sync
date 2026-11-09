@@ -56,6 +56,7 @@ rules:
         config/workflows/release-drafter.yml
         config/workflows/dependabot-automerge.yml
         config/workflows/build-publish.yml
+      environments-file: config/environments/testpypi.yml
 
   # the comment about the beanquery git dependency
   - selector:
