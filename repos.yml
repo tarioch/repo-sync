@@ -15,6 +15,8 @@ rules:
     settings:
       # merge only with a merge commit, auto-merge for Dependabot, clean up merged branches
       allow-merge-commit: true
+      merge-commit-title: PR_TITLE
+      merge-commit-message: BLANK
       allow-squash-merge: false
       allow-rebase-merge: false
       allow-auto-merge: true
