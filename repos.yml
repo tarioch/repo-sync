@@ -28,6 +28,7 @@ rules:
       dependabot-alerts: true
       dependabot-security-updates: true
       private-vulnerability-reporting: true
+      code-scanning: true
       rulesets-file: |
         config/rulesets/main.json
         config/rulesets/release-tags.json

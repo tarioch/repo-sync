@@ -7,7 +7,7 @@ Uses [bulk-github-repo-settings-sync-action](https://github.com/joshjohanning/bu
 
 | What | Where | How |
 |---|---|---|
-| merge settings, wiki, immutable releases, secret scanning, Dependabot alerts and security updates | [`repos.yml`](repos.yml) | the action |
+| merge settings, wiki, immutable releases, secret scanning, code scanning, Dependabot alerts and security updates | [`repos.yml`](repos.yml) | the action |
 | branch ruleset `main` and tag ruleset `Release tags` | `config/rulesets/` | the action |
 | `pr-labeler.yml`, `release-drafter.yml`, `dependabot-automerge.yml`, `dependabot.yml` | `config/workflows/`, `config/dependabot/` | the action, as pull requests in the repositories |
 | `.github/pr-labeler.yml`, `.gitattributes`, `SECURITY.md`, private vulnerability reporting | `config/files/`, [`repos.yml`](repos.yml) | the action (`file-sync`), as pull requests in the repositories |
