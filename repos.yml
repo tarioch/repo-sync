@@ -27,6 +27,7 @@ rules:
       secret-scanning-push-protection: true
       dependabot-alerts: true
       dependabot-security-updates: true
+      private-vulnerability-reporting: true
       rulesets-file: |
         config/rulesets/main.json
         config/rulesets/release-tags.json
@@ -36,6 +37,26 @@ rules:
         config/workflows/release-drafter.yml
         config/workflows/dependabot-automerge.yml
       dependabot-yml: config/dependabot/python.yml
+      file-sync:
+        - name: Pull request labeler rules
+          source: config/files/pr-labeler.yml
+          target: .github/pr-labeler.yml
+        - name: Line endings
+          source: config/files/gitattributes
+          target: .gitattributes
+        - name: Security policy
+          source: config/files/SECURITY.md
+          target: SECURITY.md
+
+  - selector:
+      repos: [tarioch/beancounttools, tarioch/fava-nl2bql, tarioch/xirr]
+    settings:
+      workflow-files: |
+        config/workflows/pr-labeler.yml
+        config/workflows/release-drafter.yml
+        config/workflows/dependabot-automerge.yml
+        config/workflows/build-publish.yml
+
   # the comment about the beanquery git dependency
   - selector:
       repos: [tarioch/bql-lora]
