@@ -20,6 +20,8 @@ rules:
       allow-auto-merge: true
       delete-branch-on-merge: true
       allow-update-branch: true
+      wiki: false
+      immutable-releases: true
       # security
       secret-scanning: true
       secret-scanning-push-protection: true

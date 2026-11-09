@@ -7,10 +7,10 @@ Uses [bulk-github-repo-settings-sync-action](https://github.com/joshjohanning/bu
 
 | What | Where | How |
 |---|---|---|
-| merge settings, secret scanning, Dependabot alerts and security updates | [`repos.yml`](repos.yml) | the action |
+| merge settings, wiki, immutable releases, secret scanning, Dependabot alerts and security updates | [`repos.yml`](repos.yml) | the action |
 | branch ruleset `main` and tag ruleset `Release tags` | `config/rulesets/` | the action |
 | `pr-labeler.yml`, `release-drafter.yml`, `dependabot-automerge.yml`, `dependabot.yml` | `config/workflows/`, `config/dependabot/` | the action, as pull requests in the repositories |
-| no wiki and projects, read-only workflow token, SHA pinning required | [`scripts/extra-settings.sh`](scripts/extra-settings.sh) | `gh api`, the action cannot do these |
+| no projects, read-only workflow token, SHA pinning required | [`scripts/extra-settings.sh`](scripts/extra-settings.sh) | `gh api`, the action cannot do these |
 
 A pull request here only reports what would change (dry run), merging it applies the change. A weekly run puts back
 what was changed by hand.
