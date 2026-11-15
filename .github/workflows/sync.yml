@@ -33,7 +33,7 @@ jobs:
 
       # pull requests only report what would change (job summary), the merge applies it
       - name: Sync settings, rulesets and files
-        uses: joshjohanning/bulk-github-repo-settings-sync-action@40134e844f292d0dcdc88c24fde06f085d191a35 # v2.12.4
+        uses: joshjohanning/bulk-github-repo-settings-sync-action@9858824f2b9a1c9da959a4dd542338d4661b4feb # v2.16.0
         with:
           github-token: ${{ secrets.SYNC_TOKEN }}
           repositories-file: repos.yml
@@ -41,9 +41,3 @@ jobs:
           delete-unmanaged-rulesets: true
           workflow-files-pr-title: "chore: sync workflow files"
           dependabot-pr-title: "chore: sync dependabot.yml"
-
-      - name: Sync the settings the action does not cover
-        env:
-          GH_TOKEN: ${{ secrets.SYNC_TOKEN }}
-          DRY_RUN: ${{ github.event_name == 'pull_request' }}
-        run: scripts/extra-settings.sh
