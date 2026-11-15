@@ -23,6 +23,7 @@ rules:
       delete-branch-on-merge: true
       allow-update-branch: true
       wiki: false
+      projects: false
       immutable-releases: true
       # security
       secret-scanning: true
@@ -31,6 +32,9 @@ rules:
       dependabot-security-updates: true
       private-vulnerability-reporting: true
       code-scanning: true
+      actions-default-workflow-permissions: read
+      actions-can-approve-pull-request-reviews: false
+      actions-sha-pinning-required: true
       rulesets-file: |
         config/rulesets/main.json
         config/rulesets/release-tags.json
@@ -59,7 +63,7 @@ rules:
         config/workflows/release-drafter.yml
         config/workflows/dependabot-automerge.yml
         config/workflows/build-publish.yml
-      environments-file: config/environments/testpypi.yml
+      environments-file: config/environments/pypi.yml
 
   # the comment about the beanquery git dependency
   - selector:

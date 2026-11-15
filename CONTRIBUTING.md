@@ -13,13 +13,12 @@ Settings and shared files of the repositories in [`repos.yml`](repos.yml) are de
 | `config/files/` | other files, each mapped to its place in the repositories by `file-sync` in `repos.yml` (labeler rules, `.gitattributes`, `SECURITY.md`) |
 | `config/environments/` | the deployment environments the action sets up through the API |
 | `config/dependabot/` | the variants of `.github/dependabot.yml` (`python` is the default) |
-| `scripts/extra-settings.sh` | what the action cannot set |
 | `.github/` | this repository's own workflows, `pr-labeler.yml` and `dependabot.yml` are copies of the synced ones |
 
 ## Setup and checks
 
 ```bash
-uvx pre-commit run --all-files   # file hygiene, shellcheck, zizmor
+uvx pre-commit run --all-files   # file hygiene, zizmor
 ```
 
 CI runs the same (`Lint`) plus `jq` on the rulesets. `git add` new files first, `pre-commit run --all-files` skips
